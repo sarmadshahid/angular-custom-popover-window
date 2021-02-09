@@ -1,0 +1,31 @@
+<div fxLayout="column">
+    <div fxLayout="row" fxLayoutAlign="space-between center" class="header">
+        <h4>New Message</h4>
+        <div fxLayout="row" fxLayoutGap="5">
+            <mat-icon (click)="showBody=false;bodyHeight=0" *ngIf="showBody">expand_more</mat-icon>
+            <mat-icon (click)="showBody=true;bodyHeight=80" *ngIf="!showBody">expand_less</mat-icon>
+            <mat-icon (click)="close()">close</mat-icon>
+        </div>
+    </div>
+    <div class="content" [@myAnimationTrigger]="getDisplayCommentsState()">
+        <form fxLayout="column" [formGroup]="emailForm" (ngSubmit)="onSubmit()">
+            <mat-form-field>
+                <mat-label>To</mat-label>
+                <input formControlName="to" matInput />
+                <mat-error *ngIf="f.to.errors?.required">Email is required</mat-error>
+                <mat-error *ngIf="f.to.errors?.pattern">Email must be a valid email address</mat-error>
+            </mat-form-field>
+            <mat-form-field>
+                <mat-label>Subject</mat-label>
+                <input formControlName="subject" matInput />
+            </mat-form-field>
+            <mat-form-field>
+                <mat-label>Body</mat-label>
+                <textarea style="resize: none;" formControlName="body" matInput rows="3"></textarea>
+            </mat-form-field>
+            <div fxLayoutAlign="end">
+                <button mat-raised-button color="primary" type="submit">Send</button>
+            </div>
+        </form>
+    </div>
+</div>
